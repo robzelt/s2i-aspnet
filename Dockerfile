@@ -2,7 +2,9 @@ FROM microsoft/aspnet
 
 MAINTAINER Albert Wong <albert@redhat.com>
 
-ENV ASPNET_VERSION=5.0
+ENV \ 
+    ASPNET_VERSION=5.0 \
+    HOME=/opt/app-root/src
 
 # Set the labels that are used for Openshift to describe the builder image.
 LABEL io.k8s.description="ASP.NET 5.0" \
@@ -15,7 +17,11 @@ LABEL io.k8s.description="ASP.NET 5.0" \
 
 RUN printf "deb http://ftp.us.debian.org/debian jessie main\n" >> /etc/apt/sources.list
 RUN apt-get -qq update && apt-get install -qqy sqlite3 libsqlite3-dev && rm -rf /var/lib/apt/lists/*
-RUN useradd -u 1001 -r -g 0 -s /sbin/nologin -c "Default Application User" default
+RUN mkdir -p ${HOME} && \
+    chown -R 1001:0 ${HOME}/ && \
+    useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin -c "Default Application User" default && \
+    chown -R 1001:0 /opt/app-root
+    
 
 #COPY . /app
 #WORKDIR /app
