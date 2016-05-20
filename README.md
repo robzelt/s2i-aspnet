@@ -8,7 +8,7 @@ source-to-image (https://github.com/openshift/source-to-image) builder image,
 which be used to create reproducible Docker images from your ASP.NET project's
 source code.
 
-For more information about using the Source to Image with OpenShift, please see
+For more information about using Source to Image with OpenShift, please see
 the official OpenShift Documentation (https://docs.openshift.com/enterprise/3.1/creating_images/s2i.html) .
 
 # Building the Builder Image
